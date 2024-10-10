@@ -1,0 +1,3 @@
+/home/alunos/Documentos/kaiogabriel/Estrutura de dados I/c++/cmake-build-debug/CMakeFiles/c__.dir
+/home/alunos/Documentos/kaiogabriel/Estrutura de dados I/c++/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/alunos/Documentos/kaiogabriel/Estrutura de dados I/c++/cmake-build-debug/CMakeFiles/rebuild_cache.dir
