@@ -1,0 +1,3 @@
+C:/Users/labir/Documents/kaiogabriel/Estrutura-de-dados/cmake-build-debug/CMakeFiles/Estrutura_de_dados.dir
+C:/Users/labir/Documents/kaiogabriel/Estrutura-de-dados/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/labir/Documents/kaiogabriel/Estrutura-de-dados/cmake-build-debug/CMakeFiles/rebuild_cache.dir
