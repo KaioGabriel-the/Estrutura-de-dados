@@ -26,15 +26,18 @@ class Polinomo{
 void exibir(std:: queue<Polinomo>& fila){
     std::queue<Polinomo> filaCop = fila;
     std::cout << "Polinômios ordenados (do maior expoente para o menor):" << std::endl;
+    std:: string polinomo;
     while (!filaCop.empty()) {
-        std::cout << filaCop.front().toString() << std::endl;
+        polinomo += filaCop.front().toString();
         filaCop.pop();
     }
+    std:: cout << polinomo << std::endl;
 }
+
 bool compararPolinomo(const Polinomo& p1, const Polinomo& p2) {
     return p1.expoente > p2.expoente;  // Ordem decrescente por expoente
 }
-
+ko
 
 // Função para ordenar os polinômios na fila
 void ordenarPolinomo(std::queue<Polinomo>& fila) {
@@ -65,9 +68,9 @@ void add(std:: queue<Polinomo>& fila, const Polinomo polinomo){
 int main(){
     float cof; int exp; float result;
     std:: queue <Polinomo> fila;
-    Polinomo polinomo00(3,2);
+    Polinomo polinomo00(+3,2);
     add(fila, polinomo00);
-    Polinomo polinomo01(1,3);
+    Polinomo polinomo01(+1,3);
     add(fila,polinomo01);
     exibir(fila);
     return 0;
