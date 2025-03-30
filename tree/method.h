@@ -4,12 +4,12 @@
 #include <stdio.h>
 #include "tree.h"
 
-void run(BRANCH A){
+void run(BRANCH branch){
 	if (A == NULL) return;
 
-	printf("%d", A->number);
-	percorre(A->left);
-	percorre(A->right);	
+	printf("%d", branch->number);
+	run(branch->left);
+	run(branch->right);	
 }
 
 #endif
