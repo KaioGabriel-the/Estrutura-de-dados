@@ -1,5 +1,5 @@
-#ifndef METHOD
-#define METHOD
+#ifndef METHOD_H
+#define METHOD_H
 
 #include <stdio.h>
 #include "tree.h"
@@ -8,8 +8,8 @@ void run(BRANCH A){
 	if (A == NULL) return;
 
 	printf("%d", A->number);
-	percorre(A->left);
-	percorre(A->right);	
+	run(A->left);
+	run(A->right);	
 }
 
 #endif
