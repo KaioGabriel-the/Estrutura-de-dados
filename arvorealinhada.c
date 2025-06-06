@@ -1,78 +1,87 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Definição de um nó da árvore binária
-struct Node {
-    int data;
-    struct Node* left;
-    struct Node* right;
-};
+// Definição de um nó da árvore
+typedef struct ArvoreNo {
+    int valor;
+    struct ArvoreNo* left;
+    struct ArvoreNo* right;
+} ArvoreNo;
 
 // Função para criar um novo nó
-struct Node* newNode(int data) {
-    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
-    node->data = data;
-    node->left = NULL;
-    node->right = NULL;
-    return node;
+ArvoreNo* novoNo(int valor) {
+    ArvoreNo* no = (ArvoreNo*)malloc(sizeof(ArvoreNo));
+    no->valor = valor;
+    no->left = no->right = NULL;
+    return no;
 }
 
-// Função para imprimir a árvore binária de maneira alinhada
-void printTree(struct Node* root, int space) {
+// Função para visitar o nó (exibindo o valor)
+void visit(ArvoreNo* p) {
+    printf("%d ", p->valor);
+}
+
+// Função Morris Inorder para travessar a árvore
+void MorrisInorder(ArvoreNo* root) {
+    ArvoreNo* p = root;
+    ArvoreNo* tmp;
+
+    while (p != NULL) {
+        // Se não houver filho à esquerda
+        if (p->left == NULL) {
+            visit(p);  // Visita o nó
+            p = p->right;  // Mova para o nó à direita
+        } else {
+            tmp = p->left;
+            // Encontre o maior nó à esquerda
+            while (tmp->right != NULL && tmp->right != p) {
+                tmp = tmp->right;
+            }
+
+            // Crie um link temporário, se ainda não existir
+            if (tmp->right == NULL) {
+                tmp->right = p;
+                p = p->left;  // Mova-se para o filho à esquerda
+            } else {
+                visit(p);  // Visite o nó
+                tmp->right = NULL;  // Restaure a estrutura original
+                p = p->right;  // Mova-se para o nó à direita
+            }
+        }
+    }
+}
+
+// Função para inserir um nó na árvore binária de busca
+ArvoreNo* inserir(ArvoreNo* root, int valor) {
     if (root == NULL) {
-        return;
+        return novoNo(valor);
     }
 
-    // Aumenta o espaço entre os níveis
-    space += 3;
-
-    // Imprime a subárvore direita primeiro
-    printTree(root->right, space);
-
-    // Imprime o nó atual após os espaços
-    printf("\n");
-    for (int i = 5; i < space; i++) {
-        printf(" ");
+    if (valor < root->valor) {
+        root->left = inserir(root->left, valor);
+    } else {
+        root->right = inserir(root->right, valor);
     }
-    printf("%d\n", root->data);
 
-    // Imprime a subárvore esquerda
-    printTree(root->left, space);
+    return root;
 }
 
-// Função para realizar a travessia em ordem (in-order traversal)
-void inorderTraversal(struct Node* root) {
-    if (root == NULL) {
-        return;
-    }
-
-    // Primeiro visita a subárvore esquerda
-    inorderTraversal(root->left);
-
-    // Em seguida, imprime o valor da raiz
-    printf("%d ", root->data);
-
-    // Por fim, visita a subárvore direita
-    inorderTraversal(root->right);
-}
-
+// Função para testar o código
 int main() {
-    // Criando a árvore binária
-    struct Node* root = newNode(1);
-    root->left = newNode(2);
-    root->right = newNode(3);
-    root->left->left = newNode(4);
-    root->left->right = newNode(5);
-    root->right->left = newNode(6);
-    root->right->right = newNode(7);
+    ArvoreNo* root = NULL;
 
-    // Exibindo a árvore alinhada
-    printf("Árvore binária alinhada:\n");
-    printTree(root, 0);
+    // Inserindo elementos na árvore
+    root = inserir(root, 10);
+    root = inserir(root, 5);
+    root = inserir(root, 3);
+    root = inserir(root, 7);
+    root = inserir(root, 20);
+    root = inserir(root, 15);
+    root = inserir(root, 24);
 
-    // Realizando a traversal em ordem (in-order) e exibindo os valores
-    printf("\nTraversal em ordem (In-order):\n");
-    inorderTraversal(root);  // Exibe os valores na ordem crescente
+    // Chamando a travessia Morris Inorder
+    printf("Resultado da travessia Morris Inorder: ");
+    MorrisInorder(root);
     printf("\n");
 
     return 0;
